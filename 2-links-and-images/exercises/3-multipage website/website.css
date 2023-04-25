@@ -1,0 +1,53 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: dimgrey;
+    background-attachment: scroll, fixed;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    font-family: calibri;    font-size: 3rem;
+    letter-spacing: 0.35rem;
+    padding: 2rem;
+    color: white;
+    text-shadow: 0 0 8rem red;
+}
+
+p {
+    padding: 2rem;
+    font-size: 2rem;
+    color: ghostwhite;
+}
+
+nav {
+   border-bottom: 0.35rem dashed blue;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    display: inline-block;
+    width: 20rem;
+    color: red;
+    font-size: 2rem;
+    padding: 1rem;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    
+}
+
+nav a {
+    display: inline-block;
+    height: none;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+nav a.current-page {
+    background-color: black;
+    box-shadow: 0 0 0 0;
+}

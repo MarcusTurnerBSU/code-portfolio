@@ -1,0 +1,86 @@
+/* General styles */
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-image: linear-gradient(blue, red, yellow);
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Monaco', monospace;
+    font-size: 3rem;
+    letter-spacing: 0.35rem;
+    text-align: center;
+    color: white;
+    background-image:
+        url(../images/betancourt-the-kodak-moment.gif);
+    padding: 2rem;
+    background-color: red;
+    background-size: contain;
+    background-size: 2.5rem;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
+
+a {
+   text-decoration: none; 
+}
+
+a:link {
+    color: red;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* navigation bar */
+
+nav {
+    border-top: 0.35rem dotted red;
+    border-bottom: 0.35rem dotted red;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    width: 5rem;
+    padding: 1rem;
+    text-align: center;
+    border: blue 2px dotted;
+    border-radius: 10%;
+}
+
+nav a:visted {
+    color: white;
+}
+
+nav a:hover {
+    text-decoration: none;
+    background-color: pink;
+    box-shadow: 1px 1px 10px 10px gray;
+}
+
+img {
+    max-width: 100%;
+}
+
+nav.a.current-page {
+    background-color: grey;
+}
+
+.caption {
+    font-size: 0.8rem;
+    color: gray;
+}

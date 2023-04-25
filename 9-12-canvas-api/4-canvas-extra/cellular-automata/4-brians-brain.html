@@ -1,0 +1,134 @@
+<canvas id="canvas" width="640" height="480" style="border: 1px solid">
+    Canvas is not supported
+</canvas>
+
+<script>
+    ctx = canvas.getContext('2d');
+
+    function main() {
+        requestAnimationFrame(main);
+        
+        draw();
+    }
+
+    onload = main;
+</script>
+
+<script>
+    let frameCount = -1;
+    const cellSize = 20;
+    const r = cellSize / 2;
+    const numX = Math.floor(canvas.width / cellSize);
+    const numY = Math.floor(canvas.height / cellSize);
+    
+    class Cell {
+        constructor(x, y) {
+            this.x = x * cellSize;
+            this.y = y * cellSize;
+            
+            // Randomise initial state
+            this.state = Math.floor(Math.random() * 3);
+            
+            this.neighbours = [];
+        }
+        
+        addNeighbour(cell) {
+            this.neighbours.push(cell);
+        }
+        
+        /*
+            RULES
+            If the state is off     [state = 0] and exactly two neighbours are firing, the state becomes firing.
+            If the state is firing  [state = 1], the next state is resting
+            If the state is resting [state = 2], the next state is off
+        */
+        calcNextState() {
+            if (this.state == 0) {
+                let firingCount = 0;
+                for (let i = 0; i < this.neighbours.length; i++) {
+                    if (this.neighbours[i].state == 1) firingCount++;
+                }
+                if (firingCount == 2) this.nextState = 1;
+                else this.nextState = this.state;
+            } else if (this.state == 1) {
+                this.nextState = 2;
+            } else if (this.state == 2) {
+                this.nextState = 0;
+            } else {
+                this.nextState = this.state;
+            }
+        }
+        
+        applyNextState() {
+            this.state = this.nextState;
+        }
+        
+        drawMe() {
+            if (this.state == 0) ctx.fillStyle = '#000';
+            else if (this.state == 1) ctx.fillStyle = '#fff';
+            else ctx.fillStyle = '#888';
+            ctx.beginPath();
+            ctx.arc(this.x + r, this.y + r, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    // Grid of cells
+    const cellArray = [];
+    
+    // Init grid of cells
+    for (let x = 0; x < numX; x++) {
+        cellArray[x] = [];
+        for (let y = 0; y < numY; y++) {
+            cellArray[x][y] = new Cell(x, y);
+        }
+    }
+    
+    // Tell each cell its neighbours
+    for (let x = 0; x < numX; x++) {
+        for (let y = 0; y < numY; y++) {
+            
+            // Positions
+            let above = y - 1;
+            let below = y + 1;
+            let left = x - 1;
+            let right = x + 1;
+
+            // Wrap at edges
+            if (above == -1) above = numY - 1;
+            if (below == numY) below = 0;
+            if (left == -1) left = numX - 1;
+            if (right == numX) right = 0;
+            
+            cellArray[x][y].addNeighbour(cellArray[left][above]);
+            cellArray[x][y].addNeighbour(cellArray[left][y]);
+            cellArray[x][y].addNeighbour(cellArray[left][below]);
+            cellArray[x][y].addNeighbour(cellArray[x][above]);
+            cellArray[x][y].addNeighbour(cellArray[x][below]);
+            cellArray[x][y].addNeighbour(cellArray[right][above]);
+            cellArray[x][y].addNeighbour(cellArray[right][y]);
+            cellArray[x][y].addNeighbour(cellArray[right][below]);
+        }
+    }
+    
+    function draw() {
+        frameCount++;
+        if (frameCount % 30) return;
+        
+        ctx.fillStyle = '#bbb';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].calcNextState();
+            }
+        }
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].applyNextState();
+                cellArray[x][y].drawMe();
+            }
+        }
+    }
+</script>

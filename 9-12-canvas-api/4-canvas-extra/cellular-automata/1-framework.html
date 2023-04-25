@@ -1,0 +1,109 @@
+<canvas id="canvas" width="640" height="480" style="border: 1px solid">
+    Canvas is not supported
+</canvas>
+
+<script>
+    ctx = canvas.getContext('2d');
+
+    function main() {
+        requestAnimationFrame(main);
+        
+        draw();
+    }
+
+    onload = main;
+</script>
+
+<script>
+    const cellSize = 20;
+    const r = cellSize / 2;
+    const numX = Math.floor(canvas.width / cellSize);
+    const numY = Math.floor(canvas.height / cellSize);
+    
+    class Cell {
+        constructor(x, y) {
+            this.x = x * cellSize;
+            this.y = y * cellSize;
+            
+            // Randomise initial state
+            this.state = Math.floor(Math.random() * 2);
+            
+            this.neighbours = [];
+        }
+        
+        addNeighbour(cell) {
+            this.neighbours.push(cell);
+        }
+        
+        calcNextState() {
+            // to come
+        }
+        
+        applyNextState() {
+            // this.state = this.nextState;
+        }
+        
+        drawMe() {
+            ctx.fillStyle = this.state ? '#fff' : '#000';
+            ctx.beginPath();
+            ctx.arc(this.x + r, this.y + r, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    // Grid of cells
+    const cellArray = [];
+    
+    // Init grid of cells
+    for (let x = 0; x < numX; x++) {
+        cellArray[x] = [];
+        for (let y = 0; y < numY; y++) {
+            cellArray[x][y] = new Cell(x, y);
+        }
+    }
+    
+    // Tell each cell its neighbours
+    for (let x = 0; x < numX; x++) {
+        for (let y = 0; y < numY; y++) {
+            
+            // Positions
+            let above = y - 1;
+            let below = y + 1;
+            let left = x - 1;
+            let right = x + 1;
+
+            // Wrap at edges
+            if (above == -1) above = numY - 1;
+            if (below == numY) below = 0;
+            if (left == -1) left = numX - 1;
+            if (right == numX) right = 0;
+            
+            cellArray[x][y].addNeighbour(cellArray[left][above]);
+            cellArray[x][y].addNeighbour(cellArray[left][y]);
+            cellArray[x][y].addNeighbour(cellArray[left][below]);
+            cellArray[x][y].addNeighbour(cellArray[x][above]);
+            cellArray[x][y].addNeighbour(cellArray[x][below]);
+            cellArray[x][y].addNeighbour(cellArray[right][above]);
+            cellArray[x][y].addNeighbour(cellArray[right][y]);
+            cellArray[x][y].addNeighbour(cellArray[right][below]);
+        }
+    }
+    
+    function draw() {
+        ctx.fillStyle = '#888';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].calcNextState();
+            }
+        }
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].applyNextState();
+                cellArray[x][y].drawMe();
+            }
+        }
+    }
+</script>

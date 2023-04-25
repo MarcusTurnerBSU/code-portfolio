@@ -1,0 +1,161 @@
+/* General styles */
+
+body {
+    font-family: Georgia, serif;
+    margin: 0;
+}
+
+h1 {
+    font-family: Times, serif;
+    font-size: 5rem;
+}
+
+h2 {
+    font-family: 'Apple Chancery', cursive;
+    font-size: 1.75rem;
+}
+
+a {
+    color: brown;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: brown;
+    color: antiquewhite;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* Header & footer */
+
+header, footer {
+    text-align: center;
+    padding: 2rem;
+}
+
+header {
+    background-color: antiquewhite;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    margin-top: 1rem;
+}
+
+
+/* Navigation bar */
+
+#nav-wrapper {
+    background-color: antiquewhite;
+}
+
+nav {
+    font-size: 0;
+    margin-bottom: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0 1rem;
+}
+
+nav li {
+    display: inline-block;
+    width: 25%;
+    font-size: 1rem;
+}
+
+nav a {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+nav a.current-page {
+    color: dimgray;
+    background-color: antiquewhite;
+}
+
+
+/* Article & aside section boxes */
+
+article, aside section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-width: 0.5rem;
+    border-style: groove;
+}
+
+article {
+    border-color: silver;
+    background-color: whitesmoke;
+}
+
+article time {
+    font-size: 0.8rem;
+    color: dimgray;
+}
+
+article img {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+aside section {
+    border-color: gold;
+    background-color: floralwhite;
+}
+
+aside img {
+    display: block;
+    margin: 1rem auto;
+}
+
+
+
+/* Sidebar layout */
+
+#main-and-aside {
+    font-size: 0;
+}
+
+main, aside {
+    display: inline-block;
+    font-size: 1rem;
+    vertical-align: top;
+}
+
+main {
+    width: calc(65% - 1rem);
+    margin-left: 1rem;
+}
+
+aside {
+    width: calc(35% - 2rem);
+    margin: 0 1rem;
+}
+
+
+
+/* Min and max width */
+
+nav, #main-and-aside {
+    min-width: 800px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header, #nav-wrapper, footer {
+    min-width: 800px;
+    box-sizing: border-box;
+}

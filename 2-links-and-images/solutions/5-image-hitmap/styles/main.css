@@ -1,0 +1,12 @@
+body {
+    font-family: 'Comic Sans MS', fantasy;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: blue; /* Override the default visited link color */
+}

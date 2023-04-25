@@ -1,0 +1,138 @@
+<canvas id="canvas" width="640" height="480" style="border: 1px solid">
+    Canvas is not supported
+</canvas>
+
+<script>
+    ctx = canvas.getContext('2d');
+
+    function main() {
+        requestAnimationFrame(main);
+        
+        draw();
+    }
+
+    onload = main;
+</script>
+
+<script>
+    let frameCount = -1;
+    const cellSize = 20;
+    const r = cellSize / 2;
+    const numX = Math.floor(canvas.width / cellSize);
+    const numY = Math.floor(canvas.height / cellSize);
+    
+    class Cell {
+        constructor(x, y) {
+            this.x = x * cellSize;
+            this.y = y * cellSize;
+            
+            // Set initial state
+            this.state = (x + y) * cellSize;
+            this.lastState = this.state;
+            
+            this.neighbours = [];
+        }
+        
+        addNeighbour(cell) {
+            this.neighbours.push(cell);
+        }
+        
+        /*
+            RULES
+            1) If the average of the neighbouring states is 255, the state becomes 0.
+            2) If the average of the neighbouring states is 0, the state becomes 255.
+            3) Otherwise, new state = currentstate + neighbourhood average – last state value.
+            4) If the new state goes over 255, make it 255. If the new state goes under 0, make it 0.
+        */
+        calcNextState() {
+            
+            let total = 0;
+            for (let i = 0; i < this.neighbours.length; i++) {
+                total += this.neighbours[i].state;
+            }
+            const average = Math.floor(total / 8);
+            
+            if (average == 255) this.nextState = 0;
+            else if (average == 0) this.nextState = 255;
+            else {
+                this.nextState = Math.max(0, 
+                    Math.min(255,
+                        this.state + average - this.lastState
+                    )
+                );
+            }
+            
+            this.lastState = this.state;
+        }
+        
+        applyNextState() {
+            this.state = this.nextState;
+        }
+        
+        drawMe() {
+            ctx.fillStyle = `rgb(${this.state}, ${this.state}, ${this.state})`;
+            ctx.beginPath();
+            ctx.arc(this.x + r, this.y + r, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    // Grid of cells
+    const cellArray = [];
+    
+    // Init grid of cells
+    for (let x = 0; x < numX; x++) {
+        cellArray[x] = [];
+        for (let y = 0; y < numY; y++) {
+            cellArray[x][y] = new Cell(x, y);
+        }
+    }
+    
+    // Tell each cell its neighbours
+    for (let x = 0; x < numX; x++) {
+        for (let y = 0; y < numY; y++) {
+            
+            // Positions
+            let above = y - 1;
+            let below = y + 1;
+            let left = x - 1;
+            let right = x + 1;
+
+            // Wrap at edges
+            if (above == -1) above = numY - 1;
+            if (below == numY) below = 0;
+            if (left == -1) left = numX - 1;
+            if (right == numX) right = 0;
+            
+            cellArray[x][y].addNeighbour(cellArray[left][above]);
+            cellArray[x][y].addNeighbour(cellArray[left][y]);
+            cellArray[x][y].addNeighbour(cellArray[left][below]);
+            cellArray[x][y].addNeighbour(cellArray[x][above]);
+            cellArray[x][y].addNeighbour(cellArray[x][below]);
+            cellArray[x][y].addNeighbour(cellArray[right][above]);
+            cellArray[x][y].addNeighbour(cellArray[right][y]);
+            cellArray[x][y].addNeighbour(cellArray[right][below]);
+        }
+    }
+    
+    function draw() {
+        frameCount++;
+        if (frameCount % 2) return;
+        
+        ctx.fillStyle = '#888';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].calcNextState();
+            }
+        }
+        
+        for (let x = 0; x < numX; x++) {
+            for (let y = 0; y < numY; y++) {
+                cellArray[x][y].applyNextState();
+                cellArray[x][y].drawMe();
+            }
+        }
+    }
+</script>

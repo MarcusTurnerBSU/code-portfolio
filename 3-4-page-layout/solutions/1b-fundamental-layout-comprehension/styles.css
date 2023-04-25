@@ -1,0 +1,110 @@
+/* NOTE: I replaced all the em units with rem units because it works better with the 'font-size: 0' workaround for removing the whitespace between inline block boxes. */
+
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  font: 1.2rem / 1.2 Arial, Helvetica, sans-serif;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.logo {
+  font-size: 200%;
+  padding: 50px 20px;
+  margin: 0 auto;
+  max-width: 980px;
+}
+
+.grid {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 980px;
+}
+
+nav {
+  background-color: #000;
+  padding: .5rem;
+  
+  /* display the navigation items in a row, with an equal amount of space between the items */
+  font-size: 0;
+  
+  /* The navigation bar should scroll with the content and then become stuck at the top of the viewport when it reaches it. */
+  position: sticky;
+  top: 0;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* display the navigation items in a row, with an equal amount of space between the items */
+nav li {
+  font-size: 1.2rem;
+  display: inline-block;
+  width: 20%;
+}
+  
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: .5rem 1rem;
+}
+
+.photos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  line-height: 0;
+}
+
+
+/* The photographs should display as a two column grid with a 1 pixel gap between the images. */
+
+.photos {
+  font-size: 0;
+}
+
+.photos li {
+  display: inline-block;
+  max-width: calc(50% - 0.2rem);
+  margin: 0.1rem;
+}
+
+
+.feature {
+  width: 200px;
+  
+  /* The image that is inside the article should have text wrapped around it. */
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* The <article> and <aside> elements should display as a two column layout. The columns should be a flexible size so that if the browser window shrinks smaller the columns become narrower. */
+
+main {
+  font-size: 0;
+}
+
+article, aside {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.2rem;
+}
+
+article {
+  width: 65%;
+}
+
+aside {
+  width: calc(35% - 1rem);
+  margin-left: 1rem;
+}

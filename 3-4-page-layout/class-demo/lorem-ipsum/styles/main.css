@@ -1,0 +1,155 @@
+/* General styles */
+
+body {
+    font-family: Georgia, serif;
+    margin: 0;
+}
+
+h1 {
+    font-family: Times, serif;
+    font-size: 5rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Apple Chancery', cursive;
+    font-size: 1.75rem;
+}
+
+a {
+    color: brown;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: brown;
+    color: antiquewhite;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* header & footer */
+
+header, footer {
+    text-align: center;
+    padding: 2rem;
+}
+
+header {
+    background-color: antiquewhite;
+     
+}
+
+footer {
+    background-color: black;
+    color: white;
+}
+
+/* Nav bar */
+
+#nav-wrapper {
+    
+}
+
+nav {
+    background-color: antiquewhite;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 0;
+}
+
+nav li {
+    display: inline-block;
+    width: 25%;
+    font-size: 1rem;
+}
+
+nav a {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+nav a.current-page {
+    color: dimgray;
+    background-color: antiquewhite;
+}
+
+/* Article & aside section boxes */
+
+article, aside section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-width: 0.5rem;
+    border-style: groove;
+}
+
+article {
+    border-color: silver;
+}
+
+article time {
+    font-size: 0.8rem;
+    color: dimgray;
+}
+
+article img {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+article p:last-child {
+    /*clear: left; clears the text and writing will start on the left*/
+}
+
+aside section {
+    border-color: gold;
+    background-color: floralwhite;
+}
+
+/* sidebar layout */
+
+#main-aside {
+    font-size: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+main, aside {
+    display: inline-block;
+    font-size: 1rem;
+    vertical-align: top;
+}
+
+main {
+    width: 65%;
+}
+
+aside {
+    width: calc(35% - 1rem);
+    margin-left: 1rem;
+}
+
+/* Min and max width */
+
+nav, #main-aside {
+    min-width: 800px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header, footer {
+    min-width: 800px;
+}
